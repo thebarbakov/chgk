@@ -20,7 +20,7 @@ coverage/
 storybook-static/
 
 # Project data
-/back/media/
+/back/uploads/
 
 # Environment variables
 .env

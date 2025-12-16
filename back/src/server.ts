@@ -77,11 +77,11 @@ app.use(express.json());
 
 // Serve media from project-level /media whether running from src or dist
 const mediaDirCandidates = [
-  path.join(__dirname, "..", "..", "media"), // when bundled to dist/src
-  path.join(__dirname, "..", "media"), // when running ts-node from src
+  path.join(__dirname, "..", "..", "uploads"), // when bundled to dist/src
+  path.join(__dirname, "..", "uploads"), // when running ts-node from src
 ];
 const mediaDir = mediaDirCandidates.find((p) => fs.existsSync(p)) ?? mediaDirCandidates[0];
-app.use("/media", express.static(mediaDir));
+app.use("/uploads", express.static(mediaDir));
 
 const adminSessions = new AdminSessionManager();
 const adminCookieOptions = {
@@ -159,7 +159,7 @@ const storage = multer.diskStorage({
       (file.fieldname === "file" && (file as any).targetFolder) ||
       "questions";
     const safeFolder = allowedMediaFolders.includes(folder) ? folder : "questions";
-    const dest = path.join(__dirname, "..", "media", safeFolder);
+    const dest = path.join(__dirname, "..", "uploads", safeFolder);
     fs.mkdirSync(dest, { recursive: true });
     cb(null, dest);
   },
@@ -508,7 +508,7 @@ adminRouter.post("/upload", (req: Request, res: Response) => {
     res.json({
       fileName: file.filename,
       folder: safeFolder,
-      path: `media/${safeFolder}/${file.filename}`,
+      path: `uploads/${safeFolder}/${file.filename}`,
       size: file.size,
       originalName: file.originalname,
     });

@@ -1,6 +1,6 @@
 #=========================================================================#
 # CHGK Web Template (HTTP)                                               #
-# Routes /api/*, /ws, /media/*, /health -> backend on 127.0.0.1:4000     #
+# Routes /api/*, /ws, /uploads/*, /health -> backend on 127.0.0.1:4000     #
 # Everything else -> frontend (Next.js) on 127.0.0.1:3000                #
 # Adjust ports above if your services listen elsewhere.                  #
 #=========================================================================#
@@ -47,8 +47,8 @@ server {
 		proxy_set_header X-Forwarded-Port $server_port;
 	}
 
-	location ^~ /media/ {
-		alias %home%/%user%/web/%domain%/chgk/back/media/;
+	location ^~ /uploads/ {
+		alias %home%/%user%/web/%domain%/chgk/back/uploads/;
 		try_files $uri =404;
 		expires 7d;
 		add_header Cache-Control "public";
