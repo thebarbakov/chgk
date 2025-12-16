@@ -64,7 +64,7 @@ server {
 	}
 
 	location ^~ /media/ {
-		alias %home%/%user%/web/%domain%/chgk/front/public/media;
+		alias %home%/%user%/web/%domain%/chgk/front/public/media/;
 		try_files $uri =404;
 		expires 7d;
 		add_header Cache-Control "public";
