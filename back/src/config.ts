@@ -1,4 +1,5 @@
 import "dotenv/config";
+import { parse as parseDatabaseUrl } from "pg-connection-string";
 
 function required(name: string, value: string | undefined): string {
   if (!value) {
@@ -7,9 +8,23 @@ function required(name: string, value: string | undefined): string {
   return value;
 }
 
+function validateDatabaseUrl(url: string): string {
+  try {
+    parseDatabaseUrl(url);
+    return url;
+  } catch (err) {
+    const hint =
+      url.includes("&") || url.includes("%")
+        ? " If your password has special characters, URL-encode it or wrap the whole URL in quotes so the shell doesn't cut it."
+        : "";
+    const reason = err instanceof Error ? err.message : String(err);
+    throw new Error(`Invalid DATABASE_URL: ${reason}.${hint}`);
+  }
+}
+
 export const config = {
   port: Number(process.env.PORT || 4000),
-  databaseUrl: required("DATABASE_URL", process.env.DATABASE_URL),
+  databaseUrl: validateDatabaseUrl(required("DATABASE_URL", process.env.DATABASE_URL)),
   adminLogin: required("ADMIN_LOGIN", process.env.ADMIN_LOGIN),
   adminPassword: required("ADMIN_PASSWORD", process.env.ADMIN_PASSWORD),
   appSecret: required("APP_SECRET", process.env.APP_SECRET),

@@ -372,9 +372,6 @@ export default function AdminPage() {
             <BackLink />
             <p className="text-xs uppercase tracking-[0.35em] text-amber-200/80">Администратор</p>
             <h1 className="text-5xl font-semibold leading-tight text-amber-50">Кабинет управления</h1>
-            <p className="text-amber-100/80">
-              Логин и пароль берём из `.env` бэкенда. Сессия хранится в HTTP-only cookie; при истечении потребуется войти снова.
-            </p>
             {loginError ? <p className="text-sm text-red-200">{loginError}</p> : null}
           </div>
           <div className="w-full max-w-md rounded-2xl border border-amber-500/25 bg-white/5 p-6 shadow-[0_10px_50px_rgba(0,0,0,0.4)] backdrop-blur">
@@ -410,11 +407,6 @@ export default function AdminPage() {
         src="/media/images/logo.png"
         alt="logo"
         className="pointer-events-none absolute right-4 top-4 h-16 md:h-20 w-auto opacity-90 drop-shadow-[0_6px_20px_rgba(0,0,0,0.35)]"
-      />
-      <img
-        src="/media/images/logo.png"
-        alt="logo"
-        className="pointer-events-none absolute left-4 top-4 h-12 w-auto opacity-90 drop-shadow-[0_6px_20px_rgba(0,0,0,0.35)]"
       />
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(210,168,93,0.12),transparent_26%),radial-gradient(circle_at_80%_10%,rgba(255,255,255,0.08),transparent_24%)]" />
