@@ -111,9 +111,11 @@ type AdminApiOptions = { onUnauthorized?: () => void };
 export class AdminApi extends ApiClient {
   private readonly onUnauthorized?: () => void;
 
-  constructor(baseUrl = API_BASE_URL, options: AdminApiOptions = {}) {
-    super(`${baseUrl}/api/admin`, { credentials: "include" });
-    this.onUnauthorized = options.onUnauthorized;
+  constructor(baseUrl: string | AdminApiOptions = API_BASE_URL, options: AdminApiOptions = {}) {
+    const resolvedBaseUrl = typeof baseUrl === "string" ? baseUrl : API_BASE_URL;
+    const resolvedOptions = typeof baseUrl === "string" ? options : baseUrl;
+    super(`${resolvedBaseUrl}/api/admin`, { credentials: "include" });
+    this.onUnauthorized = resolvedOptions.onUnauthorized;
   }
 
   override async request<T>(path: string, options: ApiRequestOptions = {}) {
