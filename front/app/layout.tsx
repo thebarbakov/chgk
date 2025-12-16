@@ -20,6 +20,11 @@ export const metadata: Metadata = {
   title: "Что? Где? Когда? — игровая платформа",
   description:
     "Телевизор, ведущий, администратор и игроки в одном интерфейсе CHGK.",
+  icons: {
+    icon: "/media/images/logo.png",
+    apple: "/media/images/logo.png",
+    shortcut: "/media/images/logo.png",
+  },
 };
 
 export default function RootLayout({
