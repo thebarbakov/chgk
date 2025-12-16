@@ -7,7 +7,11 @@ const normalizeBaseUrl = (value?: string) => {
 
 export const API_BASE_URL = normalizeBaseUrl(process.env.NEXT_PUBLIC_API_BASE);
 export const MEDIA_BASE_URL = normalizeBaseUrl(process.env.NEXT_PUBLIC_MEDIA_BASE || API_BASE_URL);
-export const WS_URL = process.env.NEXT_PUBLIC_WS_URL || `${API_BASE_URL.replace(/^http/, "ws")}/ws`;
+const toWssUrl = (url: string) =>
+  url.replace(/^http:/i, "wss:").replace(/^https:/i, "wss:").replace(/^ws:/i, "wss:");
+
+const envWsUrl = process.env.NEXT_PUBLIC_WS_URL?.trim();
+export const WS_URL = envWsUrl ? toWssUrl(envWsUrl) : `${toWssUrl(API_BASE_URL)}/ws`;
 
 type HeadersShape = Record<string, string>;
 export type ApiRequestOptions = RequestInit & { json?: unknown };
