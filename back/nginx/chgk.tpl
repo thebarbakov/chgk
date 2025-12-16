@@ -54,6 +54,13 @@ server {
 		add_header Cache-Control "public";
 	}
 
+	location ^~ /media/ {
+		alias %home%/%user%/web/%domain%/chgk/front/public/media;
+		try_files $uri =404;
+		expires 7d;
+		add_header Cache-Control "public";
+	}
+
 	location /ws {
 		proxy_pass $backend;
 		proxy_http_version 1.1;
