@@ -32,6 +32,7 @@ ADMIN_PASSWORD=strong-password
 APP_SECRET=change-me
 BLACK_BOX_MUSIC_PATH=/media/sfx/black_box.mp3
 ```
+If the DB password contains characters like `&` or `%`, URL-encode it (e.g. `&` -> `%26`) or wrap the whole `DATABASE_URL` value in quotes so the shell doesn't truncate it.
 4) Start:
 ```bash
 npm start
