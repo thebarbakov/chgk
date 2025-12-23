@@ -48,7 +48,7 @@ server {
 	}
 
 	location ^~ /uploads/ {
-		alias %home%/%user%/web/%domain%/chgk/back/uploads/;
+		alias %home%/%user%/web/%domain%/chgk/back/dist/uploads/;
 		try_files $uri =404;
 		expires 7d;
 		add_header Cache-Control "public";
