@@ -1,0 +1,25 @@
+# Optional isolated database for testing the deployment before production cutover.
+services:
+  backend:
+    depends_on:
+      staging-db:
+        condition: service_healthy
+
+  staging-db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: chgk_staging
+      POSTGRES_USER: chgk_staging
+      POSTGRES_PASSWORD: ${STAGING_DB_PASSWORD:?Set a staging-only password}
+    volumes:
+      - staging-db:/var/lib/postgresql/data
+      - ./back/utils/db/gen_tables.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U chgk_staging -d chgk_staging"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  staging-db:
