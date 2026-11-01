@@ -17,7 +17,9 @@ Environment Variables page. Never commit real credentials. `APP_ORIGIN` must
 be the browser-facing origin, including `https://` and any nonstandard port.
 Frontend public URLs are build-time values, so rebuild after changing the origin.
 
-The gateway publishes on `127.0.0.1:8080` by default. When the existing reverse
+The gateway image includes its versioned Nginx configuration, without relying on
+repository files remaining on the deployment host. It publishes on
+`127.0.0.1:8080` by default. When the existing reverse
 proxy is on a different host, set `APP_BIND_IP` to the application's private
 interface address. Point that proxy at the gateway and preserve the public Host,
 X-Forwarded-Proto, and WebSocket upgrade headers. Do not publish PostgreSQL.
